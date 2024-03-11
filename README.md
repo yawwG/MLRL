@@ -11,11 +11,13 @@ with unsupervised temporal progress metrics obtained from TVP/TTP showcasing MLR
 Our MLRL framework enables interpretable visual tracking of progressive areas in temporal examinations with corresponding report aligned, 
 offering insights into longitudinal VL foundation tools and potentially facilitating the temporal clinical decision-making process. 
 ## Workflow of multi-modal longitudinal representation learning (MLRL)
-<img src="https://github.com/yawwG/MLRL/figures/method1.png"/>
+<img src="https://github.com/yawwG/MLRL/blob/main/src/figures/method1.png"/>
 
 [comment]: <> (## Overview of proposed temporal progress transformer and multi-scale self-supervised consistent learning)
 
 [comment]: <> (<img src="https://github.com/yawwG/MLRL/figures/method2.png"/>)
+## Longitudinal disease progress tracking and visualization of word-based attention given temporal visual progress embeddings
+<img src="https://github.com/yawwG/MLRL/blob/main/src/figures/results1.png"/>
 
 ## Environment Setup
 Start by [installing PyTorch 1.8.1](https://pytorch.org/get-started/locally/) with the right CUDA version, then clone this repository and install the dependencies.  
