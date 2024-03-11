@@ -1,0 +1,70 @@
+experiment_name: 'temporal_pretrain'
+phase: 'pretrain'
+modality: 'mri'
+lightning:
+    trainer:
+       gpus: '1'
+       max_epochs: 50
+       distributed_backend: 'dp'
+       gradient_clip_val: 0.25
+       lr: 0.00005
+#       lr: 0.0001
+       precision: 16
+    checkpoint_callback:
+#        monitor: 'val_loss'
+        monitor: 'val_riskauc_1'
+        dirpath: '/'
+        save_last: true
+        mode: max
+        save_top_k: 5
+    logger:
+        logger_type: 'WandbLogger'
+        save_dir: '/'
+        project: 'MLRL_p'
+model:
+    mlrl:
+        local_loss_weight: 1.0
+        global_loss_weight: 1.0
+        temp1: 4.0
+        temp2: 5.0
+        temp3: 10.0
+    vision:
+        model_name: 'resnet_18'
+        freeze_cnn: false
+        pretrained: true
+    text:
+        bert_type: "emilyalsentzer/Bio_ClinicalBERT"
+        last_n_layers: 4
+        aggregate_method: 'sum'
+        norm: false
+        embedding_dim: 768
+        freeze_bert: false
+        agg_tokens: true
+        vocab_size: 28996
+data:
+    dataset: INB
+    text:
+        word_num: 200
+        captions_per_image: 200
+        full_report: true
+    image:
+        imsize: 512
+
+transforms:
+    norm: 'half'
+    random_crop:
+        crop_size: 1024
+train:
+    update_interval: 100
+    batch_size: 4
+    num_workers: 1
+    nvis: 3
+    rand_vis: false
+    optimizer:
+        name: 'Adam'
+        weight_decay: 1e-6
+    scheduler:
+        name: 'plateau'
+        monitor: 'val_loss'
+        inerval: 'epoch'
+        frequency: 1
